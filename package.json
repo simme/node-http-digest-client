@@ -1,15 +1,15 @@
 {
-  "name": "sparkoll",
+  "name": "http-digest-client",
   "version": "0.0.1",
-  "description": "Server for Spårkoll.",
+  "description": "Perform request agains digest authenticated servers.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
-  "author": "",
-  "license": "BSD",
-  "dependencies": {
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simme/node-http-digest-client"
+  },
+  "author": "Simon Ljungberg <hi@iamsim.me>",
 }
 
