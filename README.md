@@ -37,5 +37,5 @@ Mainly because I haven't really needed it. Feel free to suggest solutions! :)
 
 # License
 
-See LICENS.
+See LICENSE.
 
