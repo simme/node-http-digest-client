@@ -79,10 +79,15 @@ var HTTPDigest = function () {
       authParams.nc = nc;
       authParams.cnonce = cnonce;
     }
+    
+    authParams.algorithm='MD5';
+    
 
     var headers = options.headers || {};
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
+    
+    console.log(options);
 
     http.request(options, function (res) {
       callback(res);
@@ -93,18 +98,19 @@ var HTTPDigest = function () {
   // ## Parse challenge digest
   //
   HTTPDigest.prototype._parseChallenge = function parseChallenge(digest) {
+      console.log('_parseChallenge',digest);
     var prefix = "Digest ";
     var challenge = digest.substr(digest.indexOf(prefix) + prefix.length);
     var parts = challenge.split(',');
     var length = parts.length;
     var params = {};
     for (var i = 0; i < length; i++) {
-      var part = parts[i].match(/^\s*?([a-zA-Z0-0]+)="(.*)"\s*?$/);
+      var part = parts[i].match(/^\s*?([a-zA-Z0-0]+)="?(.*)"?\s*?$/);
       if (part.length > 2) {
-        params[part[1]] = part[2];
+        params[part[1]] = part[2].replace('"','');
       }
     }
-
+    console.log(params);
     return params;
   };
 
@@ -114,9 +120,14 @@ var HTTPDigest = function () {
   HTTPDigest.prototype._compileParams = function compileParams(params) {
     var parts = [];
     for (var i in params) {
-      parts.push(i + '="' + params[i] + '"');
+      if(i === 'nc'){
+        parts.push(i + '=' + params[i]);
+      }else{
+        parts.push(i + '="' + params[i] + '"');
+      }
+        
     }
-    return 'Digest ' + parts.join(',');
+    return 'Digest ' + parts.join(', ');
   };
 
   //
