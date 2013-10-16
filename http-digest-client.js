@@ -82,13 +82,10 @@ var HTTPDigest = function () {
     
     authParams.algorithm='MD5';
     
-
     var headers = options.headers || {};
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
     
-    console.log(options);
-
     http.request(options, function (res) {
       callback(res);
     }).end();
@@ -98,7 +95,6 @@ var HTTPDigest = function () {
   // ## Parse challenge digest
   //
   HTTPDigest.prototype._parseChallenge = function parseChallenge(digest) {
-      console.log('_parseChallenge',digest);
     var prefix = "Digest ";
     var challenge = digest.substr(digest.indexOf(prefix) + prefix.length);
     var parts = challenge.split(',');
@@ -110,7 +106,6 @@ var HTTPDigest = function () {
         params[part[1]] = part[2].replace('"','');
       }
     }
-    console.log(params);
     return params;
   };
 
