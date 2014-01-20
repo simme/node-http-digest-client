@@ -9,10 +9,13 @@ var HTTPDigest = function () {
   var crypto = require('crypto');
   var http = require('http');
 
-  var HTTPDigest = function (username, password) {
+  var HTTPDigest = function (username, password, https) {
     this.nc = 0;
     this.username = username;
     this.password = password;
+    if(https === true) {
+      http = require('https');
+    }
   };
 
   //
@@ -137,7 +140,7 @@ var HTTPDigest = function () {
   return HTTPDigest;
 }();
 
-module.exports = function createDigestClient(username, password) {
-  return new HTTPDigest(username, password);
+module.exports = function createDigestClient(username, password, https) {
+  return new HTTPDigest(username, password, https);
 };
 
