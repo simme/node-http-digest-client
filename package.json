@@ -1,6 +1,6 @@
 {
   "name": "http-digest-client",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Perform request agains digest authenticated servers.",
   "main": "http-digest-client.js",
   "scripts": {
@@ -10,6 +10,12 @@
     "type": "git",
     "url": "https://github.com/simme/node-http-digest-client"
   },
-  "author": "Simon Ljungberg <hi@iamsim.me>"
+  "author": "Simon Ljungberg <hi@iamsim.me>",
+  "contributors": [
+    {
+      "name": "Paul Gration",
+      "email": "pmgration@gmail.com"
+    }
+  ]
 }
 
