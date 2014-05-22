@@ -1,6 +1,6 @@
 {
   "name": "http-digest-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Perform request agains digest authenticated servers.",
   "main": "http-digest-client.js",
   "scripts": {
@@ -8,14 +8,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/simme/node-http-digest-client"
+    "url": "https://github.com/MarkPaxton/node-http-digest-client"
   },
-  "author": "Simon Ljungberg <hi@iamsim.me>",
+  "author": {
+    "name": "Simon Ljungberg",
+    "email": "hi@iamsim.me"
+  },
   "contributors": [
     {
       "name": "Paul Gration",
       "email": "pmgration@gmail.com"
-    }
-  ]
+    },
+    {
+       "name": "Mark Paxton",
+       "email": "markpaxton3@gmail.com"
+     }
+    ],
+  "readme": "# HTTP Digest Client\n\nHacked together snippet for talking to HTTP servers that employ digest\nauthentication.\n\n## Disclaimer\n\nOnly tested against one server and spec is not followed fully. It works for me\nand for what I am doing.\n\n## Usage\n\n    var digest = require('http-digest-client').createDigestClient('username', 'password');\n    digest.request({\n      host: 'hostname.com',\n      path: '/path.json',\n      port: 80,\n      method: 'GET',\n      headers: { \"User-Agent\": \"Simon Ljungberg\" } // Set any headers you want\n    }, function (res) {\n      res.on('data', function (data) {\n        console.log(data.toString());\n      });\n      res.on('error', function (err) {\n        console.log('oh noes');\n      });\n    });\n\nThe digest client will make one reques to the server, authentication response\nis calculated and then the request is made again. Hopefully you will then\nbe authorized.\n\n## Writing to `req`\n\nI haven't yet figured out a way to write data to the final `req` object.\nMainly because I haven't really needed it. Feel free to suggest solutions! :)\n\n# License\n\nSee LICENSE.\n\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/simme/node-http-digest-client/issues"
+  },
+  "homepage": "https://github.com/MarkPaxton/node-http-digest-client",
+  "_id": "http-digest-client@0.0.3",
+  "_shasum": "78e018f5c0756bc74d9a3ea4fe20ad6fdbc6af24",
+  "_from": "http-digest-client@~0.0.3",
+  "_resolved": "https://registry.npmjs.org/http-digest-client/-/http-digest-client-0.0.3.tgz"
 }
-

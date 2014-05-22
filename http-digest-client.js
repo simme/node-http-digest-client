@@ -7,15 +7,12 @@
 
 var HTTPDigest = function () {
   var crypto = require('crypto');
-  var http = require('http');
+  var request = require('request');
 
-  var HTTPDigest = function (username, password, https) {
+  var HTTPDigest = function (username, password) {
     this.nc = 0;
     this.username = username;
     this.password = password;
-    if(https === true) {
-      http = require('https');
-    }
   };
 
   //
@@ -25,7 +22,7 @@ var HTTPDigest = function () {
   //
   HTTPDigest.prototype.request = function (options, callback) {
     var self = this;
-    http.request(options, function (res) {
+    request.get(options, function(err, res, body) {
       self._handleResponse(options, res, callback);
     }).end();
   };
