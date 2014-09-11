@@ -23,10 +23,15 @@ var HTTPDigest = function () {
   //
   // Wraps the http.request function to apply digest authorization.
   //
-  HTTPDigest.prototype.request = function (options, callback) {
+  HTTPDigest.prototype.request = function (options, callback, requestCallback) {
     var self = this;
     http.request(options, function (res) {
-      self._handleResponse(options, res, callback);
+        var req = self._handleResponse(options, res, callback);
+        if (requestCallback) {
+          requestCallback(req);
+        } else {
+          req.end();
+        }
     }).end();
   };
 
@@ -87,9 +92,7 @@ var HTTPDigest = function () {
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
 
-    http.request(options, function (res) {
-      callback(res);
-    }).end();
+    return http.request(options, function (res) { callback(res); });
   };
 
   //
@@ -140,7 +143,10 @@ var HTTPDigest = function () {
   return HTTPDigest;
 }();
 
-module.exports = function createDigestClient(username, password, https) {
-  return new HTTPDigest(username, password, https);
+module.exports = {
+  createDigestClient: function(username, password, https) {
+    return new HTTPDigest(username, password, https);
+  }
 };
 
+// vim: set ts=2 sw=2 et:
