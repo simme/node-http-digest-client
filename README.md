@@ -10,7 +10,7 @@ and for what I am doing.
 
 ## Usage
 
-    var digest = require('http-digest-client').createDigestClient('username', 'password');
+    var digest = require('http-digest-client')('username', 'password');
     digest.request({
       host: 'hostname.com',
       path: '/path.json',
