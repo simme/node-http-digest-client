@@ -140,7 +140,9 @@ var HTTPDigest = function () {
   return HTTPDigest;
 }();
 
-module.exports = function createDigestClient(username, password, https) {
+module.exports = HTTPDigest;
+
+module.exports.createDigestClient = function createDigestClient(username, password, https) {
   return new HTTPDigest(username, password, https);
 };
 
