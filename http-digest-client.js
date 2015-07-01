@@ -29,11 +29,31 @@ var HTTPDigest = function () {
     var self = this;
     options['host'] = this.host;
     options['port'] = this.port;
-    http.request(options, function (res) {
+    self.client = http.request(options, function (res) {
       self._handleResponse(options, res, callback);
-    }).end();
+    });
+
+    if(options['method'] == 'GET'){
+      self.client.end();
+    }
+    else if(options['method'] == 'POST')
+    {
+      self.client.write(options['data']);
+      self.end();
+    }
   };
 
+  HTTPDigest.prototype.on = function(event, callthis){
+    this.client.on(event, callthis);
+  }
+
+  HTTPDigest.prototype.write = function(data){
+    this.client.write(data);
+  }
+
+  HTTPDigest.prototype.end = function(){
+    this.client.end();
+  }
   //
   // ## Handle authentication
   //
@@ -90,10 +110,13 @@ var HTTPDigest = function () {
     var headers = options.headers || {};
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
-
-    http.request(options, function (res) {
+    this.client = http.request(options, function (res) {
       callback(res);
-    }).end();
+    });
+    if(options['method']=='POST'){
+      this.client.write(options['data']);
+    }
+    this.client.end();
   };
 
   //
@@ -111,7 +134,6 @@ var HTTPDigest = function () {
         params[part[1]] = part[2];
       }
     }
-
     return params;
   };
 
@@ -144,7 +166,7 @@ var HTTPDigest = function () {
   return HTTPDigest;
 }();
 
-module.exports= function createDigestClient(host, port, username, password, https) {
+module.exports = function createDigestClient(host, port, username, password, https) {
   return new HTTPDigest(host, port, username, password, https);
 };
 
