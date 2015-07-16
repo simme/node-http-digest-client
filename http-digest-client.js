@@ -23,10 +23,15 @@ var HTTPDigest = function () {
   //
   // Wraps the http.request function to apply digest authorization.
   //
-  HTTPDigest.prototype.request = function (options, callback) {
+  HTTPDigest.prototype.request = function (options, callback, requestCallback) {
     var self = this;
     http.request(options, function (res) {
-      self._handleResponse(options, res, callback);
+      var req = self._handleResponse(options, res, callback);
+      if (requestCallback) {
+        requestCallback(req)
+      } else {
+        req.end();
+      }
     }).end();
   };
 
@@ -87,9 +92,9 @@ var HTTPDigest = function () {
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
 
-    http.request(options, function (res) {
+   return http.request(options, function (res) {
       callback(res);
-    }).end();
+    });
   };
 
   //
@@ -102,9 +107,9 @@ var HTTPDigest = function () {
     var length = parts.length;
     var params = {};
     for (var i = 0; i < length; i++) {
-      var part = parts[i].match(/^\s*?([a-zA-Z0-0]+)="(.*)"\s*?$/);
+      var part = parts[i].match(/^\s*?([a-zA-Z0-0]+)="?(.*)"?\s*?$/);
       if (part.length > 2) {
-        params[part[1]] = part[2];
+        params[part[1]] = part[2].replace('"', '');
       }
     }
 
@@ -117,9 +122,13 @@ var HTTPDigest = function () {
   HTTPDigest.prototype._compileParams = function compileParams(params) {
     var parts = [];
     for (var i in params) {
-      parts.push(i + '="' + params[i] + '"');
+      if (['qop', 'algorithm', 'nc'].indexOf(i) !== -1) {
+        parts.push(i + '=' + params[i]);
+      } else {
+        parts.push(i + '="' + params[i] + '"');
+      }
     }
-    return 'Digest ' + parts.join(',');
+    return 'Digest ' + parts.join(', ');
   };
 
   //
