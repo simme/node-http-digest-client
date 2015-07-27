@@ -25,14 +25,14 @@ var HTTPDigest = function () {
   //
   HTTPDigest.prototype.request = function (options, callback, requestCallback) {
     var self = this;
-    http.request(options, function (res) {
+    return http.request(options, function (res) {
       var req = self._handleResponse(options, res, callback);
       if (requestCallback) {
-        requestCallback(req)
+        requestCallback(req);
       } else {
         req.end();
       }
-    }).end();
+    });
   };
 
   //
