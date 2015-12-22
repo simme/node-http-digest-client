@@ -102,8 +102,8 @@ var HTTPDigest = function () {
   //
   HTTPDigest.prototype._parseChallenge = function parseChallenge(digest) {
     var prefix = "Digest ";
-    var challenge = digest.substr(digest.indexOf(prefix) + prefix.length);
-    var parts = challenge.split(',');
+    var challenge = digest && digest.substr(digest.indexOf(prefix) + prefix.length);
+    var parts = challenge && challenge.split(',') || [];
     var length = parts.length;
     var params = {};
     for (var i = 0; i < length; i++) {
