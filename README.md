@@ -9,22 +9,33 @@ Only tested against one server and spec is not followed fully. It works for me
 and for what I am doing.
 
 ## Usage
-
-    var digest = require('http-digest-client')('username', 'password');
-    digest.request({
-      host: 'hostname.com',
-      path: '/path.json',
-      port: 80,
-      method: 'GET',
-      headers: { "User-Agent": "Simon Ljungberg" } // Set any headers you want
-    }, function (res) {
-      res.on('data', function (data) {
-        console.log(data.toString());
-      });
-      res.on('error', function (err) {
-        console.log('oh noes');
-      });
+````javascript
+var digest = require('http-digest-client')('username', 'password');
+var postData = {message: 'Hello'};
+var req = digest.request({
+    host: 'hostname.com',
+    path: '/path.json',
+    port: 80,
+    method: 'POST',
+    headers: {
+       "User-Agent": "Simon Ljungberg",
+       "Content-Type": "application/json"
+     } // Set any headers you want
+  }, function responseCallback(res) {
+    res.on('data', function (data) {
+      console.log(data.toString());
     });
+    res.on('error', function (err) {
+      console.log('oh noes');
+    });
+  }, function requestCallback(req) {
+      req.write(postData);
+      req.end();
+   });
+// Uncomment the line below, in case the end point demands that the post should be include in the first request.
+// req.write(postData)
+req.end();
+```
 
 The digest client will make one reques to the server, authentication response
 is calculated and then the request is made again. Hopefully you will then
