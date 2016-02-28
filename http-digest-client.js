@@ -25,9 +25,13 @@ var HTTPDigest = function () {
   //
   HTTPDigest.prototype.request = function (options, callback) {
     var self = this;
-    http.request(options, function (res) {
+    var post_req = http.request(options, function (res) {
       self._handleResponse(options, res, callback);
-    }).end();
+    });
+    if (options.hasOwnProperty("data")) {
+      post_req.write(options["data"]);
+    }
+    post_req.end();
   };
 
   //
@@ -87,9 +91,13 @@ var HTTPDigest = function () {
     headers.Authorization = this._compileParams(authParams);
     options.headers = headers;
 
-    http.request(options, function (res) {
+    var post_req = http.request(options, function (res) {
       callback(res);
-    }).end();
+    });
+    if (options.hasOwnProperty("data")) {
+      post_req.write(options["data"]);
+    }
+    post_req.end();
   };
 
   //
