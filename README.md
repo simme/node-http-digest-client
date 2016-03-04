@@ -32,8 +32,7 @@ be authorized.
 
 ## Writing to `req`
 
-I haven't yet figured out a way to write data to the final `req` object.
-Mainly because I haven't really needed it. Feel free to suggest solutions! :)
+It's POST if `options` have property `data` (and it's property include post-data)
 
 # License
 
