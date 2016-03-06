@@ -1,20 +1,24 @@
 {
-  "name": "http-digest-client",
+  "name": "http-digest-client-with-post",
   "version": "0.0.3",
-  "description": "Perform request agains digest authenticated servers.",
+  "description": "Perform request agains digest authenticated servers with post (fork from https://github.com/simme/node-http-digest-client)",
   "main": "http-digest-client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/simme/node-http-digest-client"
+    "url": "https://github.com/vinger4/node-http-digest-client"
   },
   "author": "Simon Ljungberg <hi@iamsim.me>",
   "contributors": [
     {
       "name": "Paul Gration",
       "email": "pmgration@gmail.com"
+    },
+    {
+      "name": "Evgenii Kozhanov",
+      "email": "evgenii.kozhanov@gmail.com"
     }
   ]
 }
