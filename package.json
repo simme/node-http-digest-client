@@ -21,7 +21,7 @@
   "homepage": "https://github.com/vinger4/node-http-digest-client#readme",
   "license": "ISC",
   "dependencies": {
-      "crypto": "0.0.3",
+      "crypto": "0.0.4",
       "http": "0.0.0",
       "https": "1.0.0"
   }
