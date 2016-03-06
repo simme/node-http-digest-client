@@ -1,6 +1,6 @@
 {
   "name": "http-digest-client-with-post",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Perform request agains digest authenticated servers with post (fork from https://github.com/simme/node-http-digest-client)",
   "main": "http-digest-client.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "homepage": "https://github.com/vinger4/node-http-digest-client#readme",
   "license": "ISC",
   "dependencies": {
-      "crypto": "0.0.4",
+      "crypto": "0.0.3",
       "http": "0.0.0",
       "https": "1.0.0"
   }
