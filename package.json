@@ -8,18 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vinger4/node-http-digest-client"
+    "url": "git+https://github.com/vinger4/node-http-digest-client.git"
   },
   "author": "Simon Ljungberg <hi@iamsim.me>",
   "contributors": [
-    {
-      "name": "Paul Gration",
-      "email": "pmgration@gmail.com"
-    },
-    {
-      "name": "Evgenii Kozhanov",
-      "email": "evgenii.kozhanov@gmail.com"
-    }
-  ]
+    "Paul Gration <pmgration@gmail.com>",
+    "Evgenii Kozhanov <evgenii.kozhanov@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/vinger4/node-http-digest-client/issues"
+  },
+  "homepage": "https://github.com/vinger4/node-http-digest-client#readme",
+  "license": "ISC",
+  "dependencies": {
+      "crypto": "0.0.3",
+      "http": "0.0.0",
+      "https": "1.0.0"
+  }
 }
-
