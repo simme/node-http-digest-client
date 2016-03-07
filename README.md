@@ -32,8 +32,25 @@ be authorized.
 
 ## Writing to `req`
 
-I haven't yet figured out a way to write data to the final `req` object.
-Mainly because I haven't really needed it. Feel free to suggest solutions! :)
+It's POST if `options` have property `data` (and it's property include post-data).
+Example of usage:
+
+    var digest = require('http-digest-client')('username', 'password');
+    digest.request({
+      host: 'hostname.com',
+      path: '/path.json',
+      port: 80,
+      method: 'POST',
+      data: myPostData,
+      headers: { "User-Agent": "Simon Ljungberg" } // Set any headers you want
+    }, function (res) {
+      res.on('data', function (data) {
+        console.log(data.toString());
+      });
+      res.on('error', function (err) {
+        console.log('oh noes');
+      });
+    });
 
 # License
 
